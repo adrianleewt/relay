@@ -2,7 +2,9 @@
 
 A simple realtime game where players go back and forth entering words whose first letter is the same as the last letter of the previous word. For example, "wonderful" could be followed by "lounge". If a player can't think of a word in 10 seconds, they lose.
 
-Powered by WebSockets and AWS CDK, Lambdas, DynamoDB, S3, and API Gateway.
+Powered by WebSockets and AWS CDK, Lambdas, Cognito, DynamoDB, S3, and API Gateway. 
+
+(Yes, Cognito authentication is probably unecessary for this game, but I wanted to learn it!)
 
 ## Screenshots
 

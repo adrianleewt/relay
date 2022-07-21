@@ -4,6 +4,16 @@ A simple realtime game where players go back and forth entering words whose firs
 
 Powered by WebSockets and AWS CDK, Lambdas, DynamoDB, S3, and API Gateway.
 
+## Screenshots
+
+### Home Screen
+
+<img src='screenshots/relay-screenshot-1.png' width='400' />
+
+### Game Screen
+
+<img src='screenshots/relay-screenshot-2.png' width='400' />
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -30,19 +40,21 @@ You will also see any lint errors in the console.
 
 ## Env variables to set:
 
-### Core variables
+### Server env variables
 
 `RELAY_USER_POOL_NAME`
 
-`RELAY_USER_POOL_ID`
-
-`RELAY_CLIENT_ID`
+`RELAY_CONNECTION_URL`
 
 `RELAY_HOSTING_BUCKET_NAME`
 
-`RELAY_WEBSOCKET_URL`
+### Client env variables
 
-`RELAY_CONNECTION_URL`
+`REACT_APP_RELAY_WEBSOCKET_URL`
+
+`REACT_APP_RELAY_USER_POOL_ID`
+
+`REACT_APP_RELAY_CLIENT_ID`
 
 ### Testing variables
 

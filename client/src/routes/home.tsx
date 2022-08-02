@@ -217,6 +217,7 @@ export default function Home() {
           flexDirection: 'column',
           alignItems: 'center',
           marginTop: '15px',
+          flexWrap: 'wrap',
         }}
       >
         <TextInput

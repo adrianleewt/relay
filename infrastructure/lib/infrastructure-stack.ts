@@ -6,6 +6,8 @@ import {
   aws_lambda as lambda,
   aws_cognito as cognito,
   aws_dynamodb as dynamodb,
+  aws_s3_deployment as s3deploy,
+  aws_cloudfront as cloudFront,
   RemovalPolicy,
   Duration,
 } from 'aws-cdk-lib';
@@ -59,11 +61,79 @@ export class InfrastructureStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    new s3.Bucket(this, 'RelayBucket', {
+    /**
+     * Enables CORS access on the given bucket
+     * @memberof CxpInfrastructureStack
+     */
+    const enableCorsOnBucket = (bucket: s3.IBucket) => {
+      const cfnBucket = bucket.node.findChild('Resource') as s3.CfnBucket;
+      cfnBucket.addPropertyOverride('CorsConfiguration', {
+        CorsRules: [
+          {
+            AllowedOrigins: ['*'],
+            AllowedMethods: ['HEAD', 'GET', 'PUT', 'POST', 'DELETE'],
+            ExposedHeaders: [
+              'x-amz-server-side-encryption',
+              'x-amz-request-id',
+              'x-amz-id-2',
+            ],
+            AllowedHeaders: ['*'],
+          },
+        ],
+      });
+    };
+
+    const s3Site = new s3.Bucket(this, 'RelayBucket', {
       bucketName: hosting_bucket_name,
       versioned: true,
       publicReadAccess: true,
       websiteIndexDocument: 'index.html',
+    });
+    enableCorsOnBucket(s3Site);
+
+    // Create a new CloudFront Distribution
+    const distribution = new cloudFront.CloudFrontWebDistribution(
+      this,
+      `relay-cf-distribution`,
+      {
+        originConfigs: [
+          {
+            s3OriginSource: {
+              s3BucketSource: s3Site,
+            },
+            behaviors: [
+              {
+                isDefaultBehavior: true,
+                compress: true,
+                allowedMethods: cloudFront.CloudFrontAllowedMethods.ALL,
+                cachedMethods:
+                  cloudFront.CloudFrontAllowedCachedMethods.GET_HEAD_OPTIONS,
+                forwardedValues: {
+                  queryString: true,
+                  cookies: {
+                    forward: 'none',
+                  },
+                  headers: [
+                    'Access-Control-Request-Headers',
+                    'Access-Control-Request-Method',
+                    'Origin',
+                  ],
+                },
+              },
+            ],
+          },
+        ],
+        comment: `relay - CloudFront Distribution`,
+        viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      }
+    );
+
+    // Setup Bucket Deployment to automatically deploy new assets and invalidate cache
+    new s3deploy.BucketDeployment(this, `relay-s3bucketdeployment`, {
+      sources: [s3deploy.Source.asset('../client/build')],
+      destinationBucket: s3Site,
+      distribution: distribution,
+      distributionPaths: ['/*'],
     });
 
     // DynamoDB
@@ -276,6 +346,9 @@ export class InfrastructureStack extends Stack {
     });
     new cdk.CfnOutput(this, 'callbackURL', {
       value: callbackURL,
+    });
+    new cdk.CfnOutput(this, 'CloudFront URL', {
+      value: distribution.distributionDomainName,
     });
   }
 }

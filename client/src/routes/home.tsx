@@ -203,7 +203,7 @@ export default function Home() {
         <Text content='how to play:' size='medium' tbMargin={10} />
         <Text content='1. A word will appear on the screen.' size='small' />
         <Text
-          content='2. Enter a new word using the last letter of the prompt as the first of a new word. Words cannot be reused.'
+          content='2. Enter a new word using the last letter of the prompt as the first of a new word. Words cannot be reused at must be at least 6 letters long.'
           size='small'
         />
         <Text

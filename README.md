@@ -4,7 +4,9 @@ A simple realtime game where players go back and forth entering words whose firs
 
 Powered by WebSockets and AWS CDK, Lambdas, Cognito, DynamoDB, S3, and API Gateway. 
 
-(Yes, Cognito authentication is probably unecessary for this game, but I wanted to learn it!)
+(Yes, Cognito authentication is probably unecessary for this game, but I wanted to learn it 😀)
+
+You can try it [here]:(dqwmo9jv6saax.cloudfront.net)
 
 ## Screenshots
 

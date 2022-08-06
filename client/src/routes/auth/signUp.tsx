@@ -110,7 +110,16 @@ const SignUp: React.FunctionComponent<{}> = () => {
   return (
     <VerticalCenter>
       <Text content='sign up' size='xl' />
-      <div style={{ margin: '20px 0 10px 0', maxWidth: '500px' }}>
+      <div
+        style={{
+          margin: '20px 0 10px 0',
+          maxWidth: '500px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {!created ? signUp : accountCreated}
       </div>
     </VerticalCenter>

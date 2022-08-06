@@ -16,6 +16,10 @@ interface ButtonProps {
    */
   label: string;
   /**
+   * Type override
+   */
+  type?: 'button' | 'submit' | 'reset';
+  /**
    * Optional click handler
    */
   onClick?: () => void;
@@ -28,7 +32,6 @@ interface StyledButtonProps {
 
 const StyledButton = styled.button`
   background: none;
-
   min-width: ${(props: StyledButtonProps) =>
     props.size === 'medium' ? '200px' : '115px'};
   height: ${(props: StyledButtonProps) =>
@@ -43,9 +46,14 @@ const StyledButton = styled.button`
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ size = 'medium', label, ...props }: ButtonProps) => {
+export const Button = ({
+  size = 'medium',
+  type = 'button',
+  label,
+  ...props
+}: ButtonProps) => {
   return (
-    <StyledButton type='button' size={size} {...props}>
+    <StyledButton type={type} size={size} {...props}>
       <Text
         color={props.disabled ? '#9A9A9A' : 'white'}
         size={size}

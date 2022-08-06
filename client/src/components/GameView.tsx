@@ -234,6 +234,7 @@ class InProgress extends Component<InProgressProps, InProgressState> {
             }}
           >
             <Button
+              type='submit'
               disabled={game.turn !== userId || waiting || word.length < 6}
               label={
                 waiting

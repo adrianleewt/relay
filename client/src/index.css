@@ -15,3 +15,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* Mobile scrolling fix */
+@media only screen and (max-width: 600px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    position: relative;
+  }
+}

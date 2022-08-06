@@ -17,7 +17,9 @@ const Landing: React.FunctionComponent = () => {
       <div>
         <Text content='relay' size='xl' />
       </div>
-      <div style={{ margin: '50px 0 10px 0', maxWidth: '500px' }}>
+      <div
+        style={{ margin: '50px 0 10px 0', maxWidth: '500px', width: '100%' }}
+      >
         <Text content='how to play:' size='medium' tbMargin={10} />
         <Text content='1. A word will appear on the screen.' size='small' />
         <Text
@@ -29,11 +31,22 @@ const Landing: React.FunctionComponent = () => {
           size='small'
         />
       </div>
-      <div style={{ marginTop: '50px', display: 'flex' }}>
-        <div style={{ marginRight: '10px' }}>
+      <div
+        style={{
+          marginTop: '50px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+        }}
+      >
+        <div
+          style={{ marginLeft: '5px', marginRight: '10px', marginTop: '10px' }}
+        >
           <Button onClick={signIn} label='sign in' />
         </div>
-        <div style={{ marginLeft: '10px' }}>
+        <div
+          style={{ marginLeft: '5px', marginRight: '10px', marginTop: '10px' }}
+        >
           <Button onClick={() => navigate('/signup')} label='sign up' />
         </div>
       </div>

@@ -6,7 +6,7 @@ Powered by WebSockets and AWS CDK, Lambdas, Cognito, DynamoDB, S3, and API Gatew
 
 (Yes, Cognito authentication is probably unecessary for this game, but I wanted to learn it 😀)
 
-You can try it [here](https://dqwmo9jv6saax.cloudfront.net/).
+You can try it [here](https://dqwmo9jv6saax.cloudfront.net/). Original Figma design [here](https://www.figma.com/file/tZYKwQWkzQCb5HlTnTv4Ad/Relay?node-id=0%3A1&t=4RG9jGa3DHBMzQf9-1).
 
 ## Screenshots
 
